@@ -41,8 +41,9 @@ function updateClock() {
   const timeString = `${hours}:${minutes}:${seconds} ${meridiem}`;
 
   // Update the clock and date elements with the visitor's local time and date
-  clockElement.textContent = `${timeString} ${timezoneAbbreviation}`;
+  clockElement.textContent = timeString;
   dateElement.textContent = dateString;
+  document.getElementById('timezone').textContent = timezoneAbbreviation;
 }
 
 // Call the updateClock function every second
@@ -50,3 +51,4 @@ setInterval(updateClock, 1000);
 
 // Run the updateClock function immediately to display the initial time
 updateClock();
+
