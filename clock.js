@@ -1,6 +1,5 @@
 function updateClock() {
-  const dateElement = document.getElementById('date');
-  const timeElement = document.getElementById('time');
+  const clockElement = document.getElementById('clock');
 
   // Get the visitor's timezone abbreviation using Intl.DateTimeFormat
   const timezoneAbbreviation = new Intl.DateTimeFormat('en-US', { timeZoneName: 'short' })
@@ -39,9 +38,8 @@ function updateClock() {
   const day = adjustedLocalTime.getDate().toString().padStart(2, '0');
   const dateString = `${year}-${month}-${day}`;
 
-  // Update the clock elements with the current time and date
-  dateElement.textContent = `Date: ${dateString} (${timezoneAbbreviation})`;
-  timeElement.textContent = `Time: ${timeString} (${timezoneAbbreviation})`;
+  // Update the clock element with the current time and timezone
+  clockElement.textContent = `${timeString} (${timezoneAbbreviation})`;
 }
 
 // Call the updateClock function every second
@@ -49,3 +47,4 @@ setInterval(updateClock, 1000);
 
 // Run the updateClock function immediately to display the initial time
 updateClock();
+
