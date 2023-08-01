@@ -1,6 +1,7 @@
 function updateClock() {
   const clockElement = document.getElementById('clock');
   const dateElement = document.getElementById('date');
+  const timezoneElement = document.getElementById('timezone');
 
   // Get the visitor's timezone offset in minutes
   const timezoneOffsetMinutes = new Date().getTimezoneOffset();
@@ -22,13 +23,20 @@ function updateClock() {
   const meridiem = localTime.getHours() >= 12 ? 'PM' : 'AM';
   const timeString = `${hours}:${minutes}:${seconds} ${meridiem}`;
 
-  // Update the clock and date elements with the visitor's local time and date
+  // Get the visitor's timezone abbreviation using Intl.DateTimeFormat
+  const timezoneAbbreviation = new Intl.DateTimeFormat('en-US', { timeZoneName: 'short' })
+    .format(localTime)
+    .split(' ')[2];
+
+  // Update the clock, date, and timezone elements with the visitor's local time and date
   clockElement.textContent = timeString;
   dateElement.textContent = dateString;
+  timezoneElement.textContent = timezoneAbbreviation;
 }
+
+// Run the updateClock function immediately to display the initial time
+updateClock();
 
 // Call the updateClock function every second
 setInterval(updateClock, 1000);
 
-// Run the updateClock function immediately to display the initial time
-updateClock();
