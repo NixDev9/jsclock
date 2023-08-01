@@ -2,6 +2,11 @@ function updateClock() {
   const dateElement = document.getElementById('date');
   const timeElement = document.getElementById('time');
 
+  // Get the visitor's timezone abbreviation using Intl.DateTimeFormat
+  const timezoneAbbreviation = new Intl.DateTimeFormat('en-US', { timeZoneName: 'short' })
+    .format(new Date())
+    .split(' ')[2];
+
   // Get the current time in the visitor's timezone
   const now = new Date();
   const timezoneOffsetMinutes = now.getTimezoneOffset();
@@ -21,17 +26,12 @@ function updateClock() {
   const adjustedTimezoneOffset = timezoneOffsetMinutes + (isDST ? 60 : 0);
   const adjustedLocalTime = new Date(now.getTime() + (adjustedTimezoneOffset * 60 * 1000));
 
-  // Get the timezone abbreviation using Intl.DateTimeFormat
-  const timezoneAbbreviation = new Intl.DateTimeFormat('en-US', { timeZoneName: 'short' })
-    .format(adjustedLocalTime)
-    .split(' ')[2];
-
   // Format the time as hh:mm:ss AM/PM
   const hours = adjustedLocalTime.getHours() % 12 || 12;
   const minutes = adjustedLocalTime.getMinutes().toString().padStart(2, '0');
   const seconds = adjustedLocalTime.getSeconds().toString().padStart(2, '0');
   const meridiem = adjustedLocalTime.getHours() >= 12 ? 'PM' : 'AM';
-  const timeString = `${hours}:${minutes}:${seconds} ${meridiem} ${timezoneAbbreviation}`;
+  const timeString = `${hours}:${minutes}:${seconds} ${meridiem}`;
 
   // Format the date as YYYY-MM-DD
   const year = adjustedLocalTime.getFullYear();
@@ -40,8 +40,8 @@ function updateClock() {
   const dateString = `${year}-${month}-${day}`;
 
   // Update the clock elements with the current time and date
-  dateElement.textContent = dateString;
-  timeElement.textContent = timeString;
+  dateElement.textContent = `Date: ${dateString} (${timezoneAbbreviation})`;
+  timeElement.textContent = `Time: ${timeString} (${timezoneAbbreviation})`;
 }
 
 // Call the updateClock function every second
