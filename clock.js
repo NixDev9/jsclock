@@ -32,14 +32,15 @@ function updateClock() {
   const year = adjustedLocalTime.getFullYear();
   const dateString = `${month} ${day}, ${year}`;
 
-  // Format the time as hh:mm AM/PM (12-hour format)
+  // Format the time as hh:mm:ss AM/PM (12-hour format)
   const hours = adjustedLocalTime.getHours() % 12 || 12;
   const minutes = adjustedLocalTime.getMinutes().toString().padStart(2, '0');
+  const seconds = adjustedLocalTime.getSeconds().toString().padStart(2, '0');
   const meridiem = adjustedLocalTime.getHours() >= 12 ? 'PM' : 'AM';
-  const timeString = `${hours}:${minutes} ${meridiem}`;
+  const timeString = `${hours}:${minutes}:${seconds} ${meridiem}`;
 
   // Update the clock element with the visitor's local date and time
-  clockElement.textContent = `${dateString} | ${timeString} (${timezoneAbbreviation})`;
+  clockElement.textContent = `${dateString} | ${timeString} ${timezoneAbbreviation}`;
 }
 
 // Call the updateClock function every second
