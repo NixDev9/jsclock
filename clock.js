@@ -25,21 +25,21 @@ function updateClock() {
   const adjustedTimezoneOffset = timezoneOffsetMinutes + (isDST ? 60 : 0);
   const adjustedLocalTime = new Date(now.getTime() + (adjustedTimezoneOffset * 60 * 1000));
 
-  // Format the time as hh:mm:ss AM/PM
+  // Format the date as Month DD, YYYY
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const month = months[adjustedLocalTime.getMonth()];
+  const day = adjustedLocalTime.getDate();
+  const year = adjustedLocalTime.getFullYear();
+  const dateString = `${month} ${day}, ${year}`;
+
+  // Format the time as hh:mm AM/PM (12-hour format)
   const hours = adjustedLocalTime.getHours() % 12 || 12;
   const minutes = adjustedLocalTime.getMinutes().toString().padStart(2, '0');
-  const seconds = adjustedLocalTime.getSeconds().toString().padStart(2, '0');
   const meridiem = adjustedLocalTime.getHours() >= 12 ? 'PM' : 'AM';
-  const timeString = `${hours}:${minutes}:${seconds} ${meridiem}`;
+  const timeString = `${hours}:${minutes} ${meridiem}`;
 
-  // Format the date as YYYY-MM-DD
-  const year = adjustedLocalTime.getFullYear();
-  const month = (adjustedLocalTime.getMonth() + 1).toString().padStart(2, '0');
-  const day = adjustedLocalTime.getDate().toString().padStart(2, '0');
-  const dateString = `${year}-${month}-${day}`;
-
-  // Update the clock element with the visitor's time, date, and timezone
-  clockElement.textContent = `Time: ${timeString} | Date: ${dateString} | Timezone: ${timezoneAbbreviation}`;
+  // Update the clock element with the visitor's local date and time
+  clockElement.textContent = `${dateString} | ${timeString} (${timezoneAbbreviation})`;
 }
 
 // Call the updateClock function every second
