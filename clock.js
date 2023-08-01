@@ -1,6 +1,7 @@
 function updateClock() {
   const clockElement = document.getElementById('clock');
   const dateElement = document.getElementById('date');
+  const timezoneElement = document.getElementById('timezone');
 
   // Get the visitor's timezone abbreviation using Intl.DateTimeFormat
   const timezoneAbbreviation = new Intl.DateTimeFormat('en-US', { timeZoneName: 'short' })
@@ -40,10 +41,10 @@ function updateClock() {
   const meridiem = adjustedLocalTime.getHours() >= 12 ? 'PM' : 'AM';
   const timeString = `${hours}:${minutes}:${seconds} ${meridiem}`;
 
-  // Update the clock and date elements with the visitor's local time and date
+  // Update the clock, date, and timezone elements with the visitor's local time and date
   clockElement.textContent = timeString;
   dateElement.textContent = dateString;
-  document.getElementById('timezone').textContent = timezoneAbbreviation;
+  timezoneElement.textContent = timezoneAbbreviation;
 }
 
 // Call the updateClock function every second
