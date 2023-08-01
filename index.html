@@ -1,31 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
   <style>
     /* Your CSS styles go here */
     body {
       font-family: 'Roboto', sans-serif;
       font-size: 24px;
+      font-weight: 500;
       text-align: center;
       margin: 0;
       padding: 0;
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       height: 100vh;
       background-color: #f2f2f2;
     }
     #clock {
-      font-size: 24px;
+      display: flex;
+      justify-content: space-between;
+      width: 300px;
     }
     #date {
-      align-self: flex-start;
-      margin-left: 20px;
+      text-align: left;
+    }
+    #time {
+      text-align: right;
     }
   </style>
 </head>
 <body>
+  <div id="timezone"></div>
   <div id="date"></div>
   <div id="clock"></div>
 
